@@ -26,12 +26,19 @@ var List = React.createClass({
         })}
       </div>
     );
+  },
+  componentDidMount() {
+    var that =this;
+    $.post('/getNotes', function(data) {
+      that.setState({array: data});
+    });
   }
 });
 
 var Input = React.createClass({
   enter() {
     list.setState({array: list.state.array.concat(this.refs.txt.value)});
+    ReactDOM.unmountComponentAtNode(document.getElementById('div-add'));
   },
   render() {
     return (
